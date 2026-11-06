@@ -1,0 +1,5 @@
+{
+	"model": "google/gemini-3.1-flash-tts",
+	"voice": "Kore",
+	"prompt": "Olá! Este vídeo foi feito com inteligência artificial pela Cut.Pro. Bem-vindo ao futuro da criação de conteúdo."
+}

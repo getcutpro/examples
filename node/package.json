@@ -1,0 +1,8 @@
+{
+	"name": "cutpro-examples-node",
+	"private": true,
+	"type": "module",
+	"dependencies": {
+		"@cutpro/sdk": "^0.1.0"
+	}
+}

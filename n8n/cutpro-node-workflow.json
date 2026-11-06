@@ -1,0 +1,171 @@
+{
+	"name": "Cut.Pro: video, image and voice (community node)",
+	"nodes": [
+		{
+			"parameters": {},
+			"id": "5b1f0a9e-0001-4c8e-9d61-000000000001",
+			"name": "Start",
+			"type": "n8n-nodes-base.manualTrigger",
+			"typeVersion": 1,
+			"position": [
+				0,
+				200
+			]
+		},
+		{
+			"parameters": {
+				"resource": "generation",
+				"operation": "generate",
+				"kind": "video",
+				"model": "bytedance/seedance-2.5",
+				"prompt": "A golden retriever surfing a wave at sunset, cinematic, slow motion",
+				"seconds": 5,
+				"resolution": "720p",
+				"aspectRatio": "16:9",
+				"waitForCompletion": true,
+				"timeoutMinutes": 10,
+				"additionalFields": {}
+			},
+			"id": "5b1f0a9e-0002-4c8e-9d61-000000000002",
+			"name": "Seedance 2.5 text to video",
+			"type": "n8n-nodes-cutpro.cutPro",
+			"typeVersion": 1,
+			"position": [
+				260,
+				0
+			],
+			"credentials": {
+				"cutProApi": {
+					"id": "",
+					"name": "Cut.Pro API"
+				}
+			}
+		},
+		{
+			"parameters": {
+				"resource": "generation",
+				"operation": "generate",
+				"kind": "video",
+				"model": "alibaba/wan-3",
+				"prompt": "Steam rises from the coffee mug as the camera slowly pushes in, soft morning light",
+				"seconds": 5,
+				"resolution": "720p",
+				"aspectRatio": "16:9",
+				"imageUrls": [
+					"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Coffee_mug.jpg/1280px-Coffee_mug.jpg"
+				],
+				"waitForCompletion": true,
+				"timeoutMinutes": 10,
+				"additionalFields": {
+					"mode": "image"
+				}
+			},
+			"id": "5b1f0a9e-0003-4c8e-9d61-000000000003",
+			"name": "Wan 3 image to video",
+			"type": "n8n-nodes-cutpro.cutPro",
+			"typeVersion": 1,
+			"position": [
+				260,
+				140
+			],
+			"credentials": {
+				"cutProApi": {
+					"id": "",
+					"name": "Cut.Pro API"
+				}
+			}
+		},
+		{
+			"parameters": {
+				"resource": "generation",
+				"operation": "generate",
+				"kind": "image",
+				"model": "google/nano-banana-pro",
+				"prompt": "Place the mug from the first image on the coffee table from the second image, natural window light, product photo",
+				"aspectRatio": "4:5",
+				"imageUrls": [
+					"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Coffee_mug.jpg/1280px-Coffee_mug.jpg",
+					"https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Coffee_table_by_a_wooden_wall_%28Unsplash%29.jpg/1280px-Coffee_table_by_a_wooden_wall_%28Unsplash%29.jpg"
+				],
+				"waitForCompletion": true,
+				"timeoutMinutes": 10,
+				"additionalFields": {
+					"mode": "references"
+				}
+			},
+			"id": "5b1f0a9e-0004-4c8e-9d61-000000000004",
+			"name": "Nano Banana Pro with references",
+			"type": "n8n-nodes-cutpro.cutPro",
+			"typeVersion": 1,
+			"position": [
+				260,
+				280
+			],
+			"credentials": {
+				"cutProApi": {
+					"id": "",
+					"name": "Cut.Pro API"
+				}
+			}
+		},
+		{
+			"parameters": {
+				"resource": "generation",
+				"operation": "generate",
+				"kind": "speech",
+				"model": "google/gemini-3.1-flash-tts",
+				"voice": "Kore",
+				"prompt": "Olá! Este vídeo foi feito com inteligência artificial pela Cut.Pro. Bem-vindo ao futuro da criação de conteúdo.",
+				"waitForCompletion": true,
+				"timeoutMinutes": 10,
+				"additionalFields": {}
+			},
+			"id": "5b1f0a9e-0005-4c8e-9d61-000000000005",
+			"name": "Gemini TTS in Portuguese",
+			"type": "n8n-nodes-cutpro.cutPro",
+			"typeVersion": 1,
+			"position": [
+				260,
+				420
+			],
+			"credentials": {
+				"cutProApi": {
+					"id": "",
+					"name": "Cut.Pro API"
+				}
+			}
+		}
+	],
+	"connections": {
+		"Start": {
+			"main": [
+				[
+					{
+						"node": "Seedance 2.5 text to video",
+						"type": "main",
+						"index": 0
+					},
+					{
+						"node": "Wan 3 image to video",
+						"type": "main",
+						"index": 0
+					},
+					{
+						"node": "Nano Banana Pro with references",
+						"type": "main",
+						"index": 0
+					},
+					{
+						"node": "Gemini TTS in Portuguese",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		}
+	},
+	"settings": {
+		"executionOrder": "v1"
+	},
+	"pinData": {}
+}
